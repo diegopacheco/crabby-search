@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="logo.png" alt="crabby-search logo" width="320" />
+</p>
+
 # crabby-search
 
 An in-memory full text search engine written in Rust, with a web admin built on
@@ -8,11 +12,17 @@ only the Rust standard library. The REST API is served by actix-web on the Tokio
 runtime. The web admin uploads documents, inspects the index, and runs ranked
 searches.
 
+## Documentation
+
+- [design-doc.md](design-doc.md): architecture, modules, data model, and the API.
+- [concepts.md](concepts.md): full text search, the inverted index, and BM25 explained.
+
 ## Features
 
 - Index plain text documents in memory.
 - Ranked search with BM25 scoring.
 - Highlighted snippets around matching terms.
+- Click any search result to view the full document as JSON.
 - Index overview: document count, unique terms, average length, top terms.
 - Upload by typing, pasting, or loading a json, xml, txt, md, or pdf file.
 - Delete documents from the index.
@@ -38,8 +48,12 @@ crabby-search/
     src/
       api.ts             typed REST client
       router.tsx         TanStack Router route tree
-      routes/            Search, Upload, Indexes pages
+      extract.ts         file to text dispatch (pdf lazy loaded)
+      pdf.ts             pdf text extraction with pdfjs-dist
+      routes/            Search, Document, Upload, Indexes pages
+  docs/img/              web admin screenshots used by the README
   design-doc.md          design document
+  concepts.md            search concepts and BM25 explained
   release.sh             build the engine release and the web bundle
   run-web.sh             start the engine and the web admin
   stop-web.sh            stop the engine and the web admin
@@ -66,6 +80,39 @@ Stop everything:
 ./stop-web.sh
 ```
 
+## Web admin
+
+The admin has three pages plus a document view.
+
+### Search
+
+Type a query and rank documents with BM25. Each result shows its score and a
+snippet with the matching terms highlighted.
+
+![Search page](docs/img/search.png)
+
+### Document view
+
+Click any search result to open the full document rendered as JSON, including its
+content and indexed length.
+
+![Document view](docs/img/document.png)
+
+### Upload
+
+Add a document by typing or pasting content, or by loading a json, xml, txt, md,
+or pdf file. Text formats are read directly in the browser; pdf text is extracted
+client-side before indexing.
+
+![Upload page](docs/img/upload.png)
+
+### Indexes
+
+Inspect the index: document count, unique terms, average document length, the top
+terms by document frequency, and every indexed document with a delete action.
+
+![Indexes page](docs/img/indexes.png)
+
 ## Scripts
 
 - `release.sh`: builds the engine in release mode and builds the web bundle.
@@ -83,6 +130,7 @@ The engine listens on `127.0.0.1:7700`. Set `CRABBY_PORT` to change the port.
 | GET    | `/api/health`          | liveness check |
 | POST   | `/api/documents`       | index a document `{ "title", "content" }` |
 | GET    | `/api/documents`       | list document summaries |
+| GET    | `/api/documents/{id}`  | fetch one full document `{ id, title, content, length }` |
 | DELETE | `/api/documents/{id}`  | remove a document |
 | GET    | `/api/search?q=&limit=`| ranked search |
 | GET    | `/api/index`           | index statistics |

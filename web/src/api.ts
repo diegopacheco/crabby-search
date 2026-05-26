@@ -7,6 +7,13 @@ export interface DocumentSummary {
   preview: string
 }
 
+export interface DocumentDetail {
+  id: number
+  title: string
+  content: string
+  length: number
+}
+
 export interface SearchHit {
   id: number
   title: string
@@ -46,6 +53,10 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 
 export function listDocuments() {
   return request<DocumentSummary[]>('/documents')
+}
+
+export function getDocument(id: number) {
+  return request<DocumentDetail>(`/documents/${id}`)
 }
 
 export function createDocument(title: string, content: string) {

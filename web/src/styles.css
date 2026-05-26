@@ -165,7 +165,22 @@ body {
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 12px;
+}
+
+.result-link {
+  display: block;
   padding: 16px 18px;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 12px;
+}
+
+.result-link:hover {
+  background: var(--panel-2);
+}
+
+.result-link:hover .result-title {
+  color: var(--rust-soft);
 }
 
 .result-head {
@@ -288,4 +303,30 @@ body {
 
 .link-button:hover {
   color: var(--rust);
+}
+
+.back-link {
+  display: inline-block;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.back-link:hover {
+  color: var(--rust-soft);
+}
+
+.json {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+  color: var(--text);
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
 }

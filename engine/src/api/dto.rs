@@ -23,6 +23,14 @@ pub struct DocumentSummary {
 }
 
 #[derive(Serialize)]
+pub struct DocumentDetail {
+    pub id: u64,
+    pub title: String,
+    pub content: String,
+    pub length: u32,
+}
+
+#[derive(Serialize)]
 pub struct SearchHit {
     pub id: u64,
     pub title: String,

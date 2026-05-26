@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
+import { Link } from '@tanstack/react-router'
 import { search } from '../api'
 
 export function SearchPage() {
@@ -42,11 +43,13 @@ export function SearchPage() {
           <ul className="results">
             {data.results.map((hit) => (
               <li key={hit.id} className="result">
-                <div className="result-head">
-                  <span className="result-title">{hit.title}</span>
-                  <span className="badge">score {hit.score.toFixed(3)}</span>
-                </div>
-                <p className="snippet" dangerouslySetInnerHTML={{ __html: highlight(hit.snippet, data.query) }} />
+                <Link to="/documents/$id" params={{ id: String(hit.id) }} className="result-link">
+                  <div className="result-head">
+                    <span className="result-title">{hit.title}</span>
+                    <span className="badge">score {hit.score.toFixed(3)}</span>
+                  </div>
+                  <p className="snippet" dangerouslySetInnerHTML={{ __html: highlight(hit.snippet, data.query) }} />
+                </Link>
               </li>
             ))}
           </ul>

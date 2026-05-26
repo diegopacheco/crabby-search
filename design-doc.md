@@ -134,13 +134,14 @@ highlights matching terms inside the snippet.
 | GET    | `/api/health`          | none                      | `{ "status": "ok" }` |
 | POST   | `/api/documents`       | `{ "title", "content" }`  | created document summary |
 | GET    | `/api/documents`       | none                      | array of document summaries |
+| GET    | `/api/documents/{id}`  | none                      | full document detail |
 | DELETE | `/api/documents/{id}`  | none                      | `204 No Content` |
 | GET    | `/api/search`          | `q`, optional `limit`     | query, count, ranked results |
 | GET    | `/api/index`           | none                      | document count, term count, average length, top terms |
 
-A document summary is `{ id, title, length, preview }`. A search result is
-`{ id, title, score, snippet }`. Responses are JSON and carry permissive CORS
-headers via `actix-cors`.
+A document summary is `{ id, title, length, preview }`. A full document detail is
+`{ id, title, content, length }`. A search result is `{ id, title, score,
+snippet }`. Responses are JSON and carry permissive CORS headers via `actix-cors`.
 
 ## 11. HTTP server
 
@@ -153,16 +154,39 @@ to JSON. A permissive CORS layer is wrapped around the app.
 
 ## 12. Web admin
 
-Built with Vite and run by Bun. React renders three TanStack Router routes
+Built with Vite and run by Bun. React renders four TanStack Router routes
 inside a shared layout:
 
-- **Search** (`/`): a query box; results show title, score, and a highlighted snippet.
+- **Search** (`/`): a query box; results show title, score, and a highlighted snippet. Each result links to the document view.
+- **Document** (`/documents/$id`): fetches one document by id and renders it as formatted JSON, including its content and indexed length.
 - **Upload** (`/upload`): title and content fields, plus a file picker that accepts json, xml, txt, md, and pdf. Text formats are read with the browser `File.text()` API; pdf files are parsed in the browser with `pdfjs-dist` (lazy loaded only when a pdf is chosen) and their text is extracted into the content area. The engine itself only ever receives extracted text, so it stays a text search engine with no format parsing. Submitting indexes the document.
-- **Indexes** (`/index`): document count, unique term count, average length, top terms by document frequency, and a document table with delete actions.
+- **Indexes** (`/indexes`): document count, unique term count, average length, top terms by document frequency, and a document table with delete actions.
 
 TanStack Query owns all server state. Mutations invalidate the `documents` and
 `stats` queries so views refresh after indexing or deletion. Vite proxies `/api`
 to the engine to keep the browser on one origin.
+
+## 12.1 User interface
+
+The search page ranks documents with BM25 and highlights matching terms in each
+snippet.
+
+![Search page](docs/img/search.png)
+
+Clicking a result opens the document view, which renders the full document as
+JSON.
+
+![Document view](docs/img/document.png)
+
+The upload page accepts json, xml, txt, md, and pdf files, extracting their text
+in the browser before indexing.
+
+![Upload page](docs/img/upload.png)
+
+The indexes page reports index statistics, the most frequent terms, and the list
+of indexed documents.
+
+![Indexes page](docs/img/indexes.png)
 
 ## 13. Scripts
 

@@ -15,6 +15,7 @@ pub fn configure(cfg: &mut web::ServiceConfig) {
         )
         .service(
             web::resource("/api/documents/{id}")
+                .route(web::get().to(handlers::get_document))
                 .route(web::delete().to(handlers::delete_document)),
         )
         .service(web::resource("/api/search").route(web::get().to(handlers::search)))

@@ -2,6 +2,7 @@ import { createRootRoute, createRoute, createRouter, Link, Outlet } from '@tanst
 import { SearchPage } from './routes/SearchPage'
 import { UploadPage } from './routes/UploadPage'
 import { IndexPage } from './routes/IndexPage'
+import { DocumentPage } from './routes/DocumentPage'
 
 const rootRoute = createRootRoute({
   component: () => (
@@ -32,8 +33,9 @@ const rootRoute = createRootRoute({
 const searchRoute = createRoute({ getParentRoute: () => rootRoute, path: '/', component: SearchPage })
 const uploadRoute = createRoute({ getParentRoute: () => rootRoute, path: '/upload', component: UploadPage })
 const indexRoute = createRoute({ getParentRoute: () => rootRoute, path: '/indexes', component: IndexPage })
+const documentRoute = createRoute({ getParentRoute: () => rootRoute, path: '/documents/$id', component: DocumentPage })
 
-const routeTree = rootRoute.addChildren([searchRoute, uploadRoute, indexRoute])
+const routeTree = rootRoute.addChildren([searchRoute, uploadRoute, indexRoute, documentRoute])
 
 export const router = createRouter({ routeTree })
 

@@ -2,8 +2,8 @@ use actix_web::{HttpResponse, Responder, web};
 use serde_json::json;
 
 use super::dto::{
-    CreateDocumentRequest, DocumentSummary, SearchHit, SearchParams, SearchResponse, StatsResponse,
-    TermStat,
+    CreateDocumentRequest, DocumentDetail, DocumentSummary, SearchHit, SearchParams,
+    SearchResponse, StatsResponse, TermStat,
 };
 use super::state::AppState;
 
@@ -48,6 +48,20 @@ pub async fn list_documents(state: web::Data<AppState>) -> impl Responder {
         })
         .collect();
     HttpResponse::Ok().json(documents)
+}
+
+pub async fn get_document(state: web::Data<AppState>, path: web::Path<u64>) -> impl Responder {
+    let id = path.into_inner();
+    let engine = state.engine.read().unwrap();
+    match engine.document(id) {
+        Some(document) => HttpResponse::Ok().json(DocumentDetail {
+            id: document.id,
+            title: document.title.clone(),
+            content: document.content.clone(),
+            length: engine.document_length(document.id),
+        }),
+        None => HttpResponse::NotFound().json(json!({ "error": "not found" })),
+    }
 }
 
 pub async fn delete_document(state: web::Data<AppState>, path: web::Path<u64>) -> impl Responder {

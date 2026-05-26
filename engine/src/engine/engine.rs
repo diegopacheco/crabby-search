@@ -44,6 +44,10 @@ impl SearchEngine {
         self.store.all()
     }
 
+    pub fn document(&self, id: u64) -> Option<&Document> {
+        self.store.get(id)
+    }
+
     pub fn document_length(&self, id: u64) -> u32 {
         self.index.document_length(id)
     }

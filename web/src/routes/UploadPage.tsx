@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { createDocument } from '../api'
+import { extractText } from '../extract'
 
 export function UploadPage() {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+  const [reading, setReading] = useState(false)
+  const [fileError, setFileError] = useState('')
   const queryClient = useQueryClient()
 
   const mutation = useMutation({
@@ -17,7 +20,7 @@ export function UploadPage() {
     },
   })
 
-  function onFile(event: React.ChangeEvent<HTMLInputElement>) {
+  async function onFile(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0]
     if (!file) {
       return
@@ -25,9 +28,16 @@ export function UploadPage() {
     if (!title) {
       setTitle(file.name)
     }
-    const reader = new FileReader()
-    reader.onload = () => setContent(String(reader.result ?? ''))
-    reader.readAsText(file)
+    setFileError('')
+    setReading(true)
+    try {
+      setContent(await extractText(file))
+    } catch {
+      setContent('')
+      setFileError(`Could not read ${file.name}`)
+    } finally {
+      setReading(false)
+    }
   }
 
   function submit(event: React.FormEvent) {
@@ -49,8 +59,15 @@ export function UploadPage() {
           placeholder="Document title"
         />
 
-        <label className="label">Load from file</label>
-        <input className="input" type="file" accept=".txt,.md,.json,.csv,.log" onChange={onFile} />
+        <label className="label">Load from file (json, xml, txt, md, pdf)</label>
+        <input
+          className="input"
+          type="file"
+          accept=".json,.xml,.txt,.md,.pdf,application/json,application/xml,text/xml,text/plain,text/markdown,application/pdf"
+          onChange={onFile}
+        />
+        {reading && <p className="muted">Reading file...</p>}
+        {fileError && <p className="error">{fileError}</p>}
 
         <label className="label">Content</label>
         <textarea
@@ -61,7 +78,7 @@ export function UploadPage() {
           placeholder="Paste or type document content"
         />
 
-        <button className="button" type="submit" disabled={mutation.isPending || !content.trim()}>
+        <button className="button" type="submit" disabled={mutation.isPending || reading || !content.trim()}>
           {mutation.isPending ? 'Indexing...' : 'Index document'}
         </button>
 

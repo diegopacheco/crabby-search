@@ -14,7 +14,7 @@ searches.
 - Ranked search with BM25 scoring.
 - Highlighted snippets around matching terms.
 - Index overview: document count, unique terms, average length, top terms.
-- Upload by typing, pasting, or loading a text file.
+- Upload by typing, pasting, or loading a json, xml, txt, md, or pdf file.
 - Delete documents from the index.
 
 ## Stack
@@ -23,6 +23,7 @@ searches.
 - Search core: standard library only, no crates.
 - REST layer: actix-web, actix-cors, serde, on the Tokio runtime.
 - Web admin: Vite, Bun, React, TanStack Router, TanStack Query.
+- File text extraction: built-in `File.text()` for json, xml, txt, md; `pdfjs-dist` for pdf.
 
 ## Layout
 

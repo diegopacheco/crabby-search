@@ -157,7 +157,7 @@ Built with Vite and run by Bun. React renders three TanStack Router routes
 inside a shared layout:
 
 - **Search** (`/`): a query box; results show title, score, and a highlighted snippet.
-- **Upload** (`/upload`): title and content fields, plus a file picker that reads a text file into the content area; submitting indexes the document.
+- **Upload** (`/upload`): title and content fields, plus a file picker that accepts json, xml, txt, md, and pdf. Text formats are read with the browser `File.text()` API; pdf files are parsed in the browser with `pdfjs-dist` (lazy loaded only when a pdf is chosen) and their text is extracted into the content area. The engine itself only ever receives extracted text, so it stays a text search engine with no format parsing. Submitting indexes the document.
 - **Indexes** (`/index`): document count, unique term count, average length, top terms by document frequency, and a document table with delete actions.
 
 TanStack Query owns all server state. Mutations invalidate the `documents` and

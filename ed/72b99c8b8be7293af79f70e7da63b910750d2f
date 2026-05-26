@@ -1,0 +1,36 @@
+web/src/pdf.ts
+  s_9531073ccd67c1::t_0705cba91d3e61 1-16
+web/package.json
+  s_9531073ccd67c1::t_3537deacca5961 14
+web/src/extract.ts
+  s_9531073ccd67c1::t_3f11907efd527c 1-2,4-11
+  s_9531073ccd67c1::t_a42c79a4d28ee5 3
+README.md
+  s_9531073ccd67c1::t_e6ba9524ff471c 17
+  s_9531073ccd67c1::t_313f47f2e317e7 26
+design-doc.md
+  s_9531073ccd67c1::t_bbd9c00774f992 160
+web/src/routes/UploadPage.tsx
+  s_9531073ccd67c1::t_912b06bc119286 23,31-40
+  s_9531073ccd67c1::t_13710584d2c396 81
+  s_9531073ccd67c1::t_2bf8e99b71d69e 62-70
+  s_9531073ccd67c1::t_5d6a177f53b9a1 4,9-10
+web/src/vite-env.d.ts
+  s_9531073ccd67c1::t_6f507d4638f3b8 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.1",
+  "base_commit_sha": "ed72b99c8b8be7293af79f70e7da63b910750d2f",
+  "prompts": {},
+  "sessions": {
+    "s_9531073ccd67c1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0198a95e-1557-45b0-9174-c8b4cdc5931a",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "diegopacheco <diego.pacheco.it@gmail.com>"
+    }
+  }
+}

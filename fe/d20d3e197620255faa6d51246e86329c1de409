@@ -1,0 +1,51 @@
+engine/src/api/dto.rs
+  s_9531073ccd67c1::t_09885cd983824b 26-32
+design-doc.md
+  s_9531073ccd67c1::t_1a5a2f9b7838b3 137,142-144
+  s_9531073ccd67c1::t_b04750c01320dd 157,160-161,163,169-189
+engine/src/api/handlers.rs
+  s_9531073ccd67c1::t_6d23dbe6237a6d 53-66
+  s_9531073ccd67c1::t_016bfe1e924d0a 5-6
+web/src/styles.css
+  s_9531073ccd67c1::t_14e633e63b5ad2 168-171,173-183
+  s_9531073ccd67c1::t_dcb400206b1e5f 307-332
+web/src/router.tsx
+  s_9531073ccd67c1::t_c3235adc20ef80 5
+  s_9531073ccd67c1::t_f0ff08b49e90b9 36,38
+web/src/routes/DocumentPage.tsx
+  s_9531073ccd67c1::t_2cca5f09e37e3c 1-25
+concepts.md
+  s_9531073ccd67c1::t_68f8eac09e1b04 1-176
+web/src/routes/SearchPage.tsx
+  s_9531073ccd67c1::t_58b8d12cf162a6 3
+  s_9531073ccd67c1::t_056f64205bb907 46-52
+engine/src/api/mod.rs
+  s_9531073ccd67c1::t_b4411c67faa1f0 18
+web/src/api.ts
+  s_9531073ccd67c1::t_39d1c95f9f376f 58-61
+  s_9531073ccd67c1::t_de512348be6a67 10-16
+README.md
+  s_9531073ccd67c1::t_1c0b2b35411c29 25
+  s_9531073ccd67c1::t_eb297a1b5dbe1e 1-4,15-18
+  s_9531073ccd67c1::t_de782907527e6b 83-115
+  s_9531073ccd67c1::t_cd90f118e90094 133
+  s_9531073ccd67c1::t_d2b5504e733910 51-54,56
+engine/src/engine/engine.rs
+  s_9531073ccd67c1::t_2dc4d3e1b466f7 47-50
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.1",
+  "base_commit_sha": "fed20d3e197620255faa6d51246e86329c1de409",
+  "prompts": {},
+  "sessions": {
+    "s_9531073ccd67c1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0198a95e-1557-45b0-9174-c8b4cdc5931a",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "diegopacheco <diego.pacheco.it@gmail.com>"
+    }
+  }
+}

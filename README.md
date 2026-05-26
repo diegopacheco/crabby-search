@@ -1,4 +1,4 @@
-<p align="center">
+<p align="left">
   <img src="logo.png" alt="crabby-search logo" width="320" />
 </p>
 
